@@ -10,3 +10,13 @@ test('skill targets expose slot but not card value to opponent',()=>{const m=mat
 test('swap transfers face up flag and public info',()=>{const m=match();memory(m);m.face[0][0]=true;m.phase='decision';m.drawn=11;m.source='deck';act(m,0,{type:'ability'});act(m,0,{type:'select',index:0});act(m,0,{type:'target',index:2});assert.equal(m.face[1][2],true);assert.equal(view(m,0).hands[1][2].value,m.hands[1][2]);});
 test('cabo +10 failures and strict ties',()=>{let r=score([[1,1,1,1],[2,2,2,2]],0);assert.equal(r.points[0],0);r=score([[3,3,3,3],[1,1,1,1]],0);assert.equal(r.points[0],22);r=score([[1,2,3,4],[1,2,3,4]],0);assert.equal(r.points[0],20);});
 test('final turn, history and 100 point match',()=>{const m=match();memory(m);m.scores=[99,99];act(m,0,{type:'cabo'});assert.equal(m.turn,1);act(m,1,{type:'draw'});act(m,1,{type:'discard'});assert.equal(m.phase,'match-end');assert.equal(m.history.length,1);assert.throws(()=>act(m,1,{type:'start'}));act(m,0,{type:'reset'});assert.equal(m.phase,'memory');assert.deepEqual(m.scores,[0,0]);});
+test('swap only invalidates memory of exchanged positions',()=>{
+  const m=match();memory(m);
+  const p0Unchanged=m.views[0][2],p1Unchanged=m.views[1][3];
+  m.phase='decision';m.turn=0;m.drawn=11;m.source='deck';
+  act(m,0,{type:'ability'});act(m,0,{type:'select',index:0});act(m,0,{type:'target',index:1});
+  assert.equal(m.views[0][2],p0Unchanged,'player A retains memory of own untouched #3');
+  assert.equal(m.views[1][3],p1Unchanged,'player B retains memory of own untouched #4');
+  assert.equal(view(m,0).hands[0][0].value,null,'swapped concealed slot must become unknown');
+  assert.equal(view(m,1).hands[1][1].value,null,'opponent swapped concealed slot must become unknown');
+});
