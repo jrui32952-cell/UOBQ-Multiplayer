@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#faf7f2"/><title>UOBQ — 一个关于记忆&魔法的小游戏</title><link rel="icon" href="assets/moon-house-logo.png"/><link rel="stylesheet" href="styles.css"/></head>
+<body>
+  <div class="app-shell">
+    <header class="topbar"><div class="brand" aria-label="UOBQ 品牌"><img src="assets/moon-house-logo.png" alt="月亮小屋 Logo"/><span>UOBQ</span></div><button class="audio-control" type="button" id="audioToggle" aria-label="打开背景音乐" aria-pressed="false"><img class="audio-symbol" id="audioSymbol" src="assets/icon-music-off.svg" alt=""/><span id="audioLabel">音乐关闭</span></button></header>
+    <main class="hero"><div class="hero-decoration dec-left" aria-hidden="true">✦</div><div class="hero-decoration dec-right" aria-hidden="true">✳</div><div class="eyebrow"><span class="eyebrow-line"></span> 一场小小的卡牌冒险 <span class="eyebrow-line"></span></div><h1>UOBQ<span class="title-star">✦</span></h1><p class="tagline">一个关于记忆<span class="amp"> &amp; </span>魔法的小游戏</p>
+      <div class="stage" aria-label="戴眼镜的小狗和戴厨师帽的垂耳兔坐在蓝色座机旁打电话">
+        <img class="hero-art" src="assets/hero-dog-bunny-phone.png" alt="戴圆眼镜和蓝色围兜的小狗，与戴厨师帽及红色领结的垂耳兔，一起使用浅蓝色复古电话" />
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="playOpen"><img class="btn-icon" src="assets/icon-play-game.svg" alt=""/> 开始游戏</button>
+        <button type="button" class="btn btn-secondary" id="rulesOpen"><img class="btn-icon" src="assets/icon-how-to-play.svg" alt=""/> 玩法说明</button>
+      </div>
+    </main><footer class="footer"><span>✦</span><span>藏在卡牌里的小秘密</span><span>✦</span></footer>
+  </div>
+  <div class="modal-backdrop" id="rulesModal" hidden>
+    <section class="modal rules-modal" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+      <button class="close-modal" type="button" id="rulesClose" aria-label="关闭玩法说明">×</button>
+      <div class="rule-progress" aria-hidden="true"><span></span></div>
+      <p class="modal-kicker">四步学会 UOBQ</p>
+      <h2 id="rulesTitle">记住你的牌，猜准时机。</h2>
+      <p class="rules-intro">每人有四张暗牌。记住牌面，巧妙换牌，让总点数尽可能低；当你觉得时机到了，就喊 CABO！</p>
+      <div class="rules-grid">
+        <article class="rule-card rule-lilac"><div class="rule-head"><span class="rule-dot"></span><h3>01 · 开局记牌</h3></div><p>开局查看自己的两张暗牌，记住点数和位置。</p><img src="assets/how-to-play-1.webp" alt="兔兔记住开局两张牌，小狗在旁边观察" loading="lazy"/></article>
+        <article class="rule-card rule-blue"><div class="rule-head"><span class="rule-dot"></span><h3>02 · 摸牌换牌</h3></div><p>每回合摸一张牌，选择替换自己的暗牌或弃掉新牌。</p><img src="assets/how-to-play-2.webp" alt="小狗摸牌，兔兔交换或弃牌" loading="lazy"/></article>
+        <article class="rule-card rule-peach"><div class="rule-head"><span class="rule-dot"></span><h3>03 · 使用魔法</h3></div><p>使用 偷看、侦查、交换 三种特殊能力。</p><img src="assets/how-to-play-3.webp" alt="狗兔示范偷看、侦查和交换" loading="lazy"/></article>
+        <article class="rule-card rule-pink"><div class="rule-head"><span class="rule-dot"></span><h3>04 · 喊 CABO</h3></div><p>宣告 CABO 后，对手再行动一回合，随后全部亮牌结算。</p><img src="assets/how-to-play-4.webp" alt="狗兔举牌并完成最终结算" loading="lazy"/></article>
+      </div>
+      <button class="btn btn-primary modal-done" id="rulesDone" type="button">我知道怎么玩了 <span aria-hidden="true">→</span></button>
+    </section>
+  </div>
+  <div class="modal-backdrop" id="modeModal" hidden>
+    <section class="modal mode-modal" role="dialog" aria-modal="true" aria-labelledby="modeTitle">
+      <button class="close-modal" type="button" id="modeClose" aria-label="关闭模式选择">×</button>
+      <p class="modal-kicker">选择你的游戏方式</p><h2 id="modeTitle">开始游戏</h2>
+      <p class="modal-lead">想一个人试试，还是邀请朋友一起玩？</p>
+      <div class="mode-options">
+        <a class="mode-option" href="game.html"><img src="assets/icon-solo-mode.svg" alt=""/><strong>单人游戏</strong><span>与电脑练习</span></a>
+        <button type="button" class="mode-option" id="multiplayerOpen"><img src="assets/icon-multiplayer.svg" alt=""/><strong>多人联机</strong><span>房间入口 · 开发中</span></button>
+      </div>
+      <div class="room-preview" id="roomPreview" hidden>
+        <p>多人房间尚未连接服务器，下面是未来的入口预览。</p>
+        <div class="room-choices"><span><img src="assets/icon-create-room.svg" alt=""/> 创建房间</span><span><img src="assets/icon-join-room.svg" alt=""/> 加入房间</span></div>
+        <label for="roomCode">房间代码</label><div class="room-input"><input id="roomCode" disabled placeholder="即将开放" autocomplete="off"/><img src="assets/icon-copy-code.svg" alt=""/></div>
+      </div>
+    </section>
+  </div>
+  <script src="main.js"></script>
+</body></html>
