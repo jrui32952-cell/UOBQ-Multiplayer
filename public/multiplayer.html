@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>UOBQ · 双人联机</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="multiplayer.css"></head><body>
+<div class="mp-shell"><header class="mp-head"><a class="mp-brand" href="index.html"><img src="assets/moon-house-logo.png" alt=""> UOBQ</a><span class="mp-tag">双人联机 · 测试版</span><button id="recapBtn" hidden>比赛战绩</button></header>
+<section id="lobby" class="mp-lobby"><div class="lobby-icon">✧</div><h1>一起玩一局吧</h1><p>两台设备打开同一个网站，创建或加入 6 位房间码。</p><label>你的昵称 <input id="name" maxlength="18" value="小魔法师" autocomplete="nickname"></label><div class="mp-choices"><button id="create" class="mp-primary">创建房间</button><div class="join-row"><input id="roomInput" maxlength="6" placeholder="输入房间码" autocapitalize="characters" aria-label="房间码"><button id="join">加入房间</button></div></div><p class="mp-error" id="lobbyError" role="alert"></p></section>
+<section id="table" hidden>
+<div class="mp-roombar"><span>房间 <strong id="roomCode"></strong></span><button id="copy">复制邀请链接</button><span id="connection">连接中…</span></div>
+<div class="mp-message" id="message">等待对手加入…</div>
+<div class="mp-participant"><span id="opponentName">对手</span><span class="mp-sub" id="opponentStatus"></span></div><div class="mp-hand" id="opponentCards"></div>
+<div class="mp-center"><div class="mp-pile"><div>摸牌堆</div><button class="mp-card" id="draw"><img src="assets/cards/card-back.svg" alt="摸牌堆"></button><small id="deckRemaining">—</small></div><div class="mp-actions"><div class="mp-step" id="step">等待开始</div><div id="drawnCard" class="mp-drawn"></div><div class="mp-action-buttons"><button id="start" class="mp-primary" hidden>开始比赛</button><button id="next" class="mp-primary" hidden>下一小局</button><button id="reset" class="mp-primary" hidden>重新开始整场</button><button id="discard" hidden>弃掉摸到的牌</button><button id="ability" hidden>发动技能</button><button id="cabo" class="mp-cabo" hidden>宣告 CABO ✦</button></div></div><div class="mp-pile"><div>弃牌堆 · 明牌</div><button class="mp-card" id="take"><span>—</span></button><small>拿取后持续公开</small></div></div>
+<div class="mp-participant"><span>你的四张牌</span><span class="mp-sub" id="yourStatus"></span></div><div class="mp-hand" id="yourCards"></div>
+<div class="mp-score"><div><strong id="yourPoints">0</strong><small>你 · 距100分 <b id="yourLeft">100</b></small></div><div><strong id="oppPoints">0</strong><small>对手 · 距100分 <b id="oppLeft">100</b></small></div></div>
+<div class="mp-events"><h2>公开操作</h2><ul id="events"></ul></div>
+</section></div>
+<div class="mp-modal" id="recap" hidden><div class="mp-modal-body"><button class="mp-close" id="closeRecap">关闭 ✕</button><h2>比赛战绩复盘</h2><div id="recapBody"></div></div></div>
+<script src="multiplayer.js"></script></body></html>
